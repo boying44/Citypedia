@@ -3,6 +3,8 @@ from flask import Flask, render_template
 
 app = Flask(__name__)
 
+weatherAPI = 7243b666b6841ed373ea8cd1289cc06d
+
 @app.route("/")
 def home():
 	# url = """

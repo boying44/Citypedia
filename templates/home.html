@@ -2,6 +2,11 @@
 
 {% block body %}
 
+{% for u in weather %}
+{{u}}
+<hr>
+{% endfor %}
+
 <form method="POST">
 	Enter a city: 
 	<input type="text" name="city">

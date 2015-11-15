@@ -6,21 +6,20 @@
       <div>
         <div class="posts">
 	  <center><h1>Information about {{city}}</h1></center>
-          <h1 class="content-subhead">Infomation</h1>
+          <h1 class="content-subhead">Information</h1>
 	  {% if wikiError %}
-	  Wikipedia data  not found for city
+	  Wikipedia data not found for city
 	  {% else %}
 	  {% for i in wiki %}
-	  {{wiki[i]['extract']}} 
+	  {{i}}
 	  {% endfor %}
 	  {% endif %}
 
-	    <br><br><br>
+	  <br><br><br>
 
 	  <h1 class="content-subhead">Weather</h1>
 	  {% if weatherError %}
 	  Weather data not found for city
-	  <hr>
 	  {% else %}
 	  {% for u in weather %}
 	  {{u}}<br><br>
@@ -35,7 +34,7 @@
 	  {% else %}
 	  {% for i in images %}
 	  <img src={{i}} width="50%">
-	  <hr>
+	  <br>
 	  {% endfor %}
 	  {% endif %}
 

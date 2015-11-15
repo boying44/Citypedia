@@ -7,7 +7,7 @@ weatherAPI = "7243b666b6841ed373ea8cd1289cc06d"
 
 @app.route("/")
 def home():
-	return render_template("home.html")
+	return render_template("base.html") 
 
 @app.route("/info", methods = ["GET", "POST"])
 def info():
@@ -16,6 +16,24 @@ def info():
                 weatherError = False
                 imageError = False
 
+                #Wikipedia Info
+                url = "https://en.wikipedia.org/w/api.php?action=query&titles=%s&prop=extracts&exintro=&explaintext=&rvprop=content&format=json"
+                url = url%(city.replace(" ", "%20"))
+                req = urllib2.urlopen(url)
+                result = req.read()
+                r = json.loads(result)
+                if r.has_key("query"):
+                        q = r["query"]
+                        if q.has_key("pages"):
+                                wiki = q["pages"]
+                        else:
+                                wikiError = True
+                                wiki = []
+                else:
+                        wikiError = True
+                        wiki = []
+
+                
                 #Weather data
                 url = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=Imperial&appid=%s"
                 url = url%(city.replace(" ", "%20"), weatherAPI)
@@ -49,9 +67,13 @@ def info():
                         imageError = True
                         imageURLs = []
 
-                return render_template("info.html", city = city, weatherError = weatherError, imageError = imageError, weather = weather, images = imageURLs)
+                return render_template("explore.html", city = city, wiki=wiki, weatherError = weatherError, imageError = imageError, weather = weather, images = imageURLs)
         else:
                 return redirect("/")
+
+@app.route("/about")
+def about():
+        return render_template("about.html")
 
 if __name__ == "__main__":
    app.debug = True

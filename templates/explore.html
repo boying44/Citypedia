@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="content pure-u-1 pure-u-md-3-4">
+      <div>
+        <div class="posts">
+	  <center><h1>Information about {{city}}</h1></center>
+          <h1 class="content-subhead">Infomation</h1>
+	  {% if wikiError %}
+	  Wikipedia data  not found for city
+	  {% else %}
+	  {% for i in wiki %}
+	  {{wiki[i]['extract']}} 
+	  {% endfor %}
+	  {% endif %}
+
+	    <br><br><br>
+
+	  <h1 class="content-subhead">Weather</h1>
+	  {% if weatherError %}
+	  Weather data not found for city
+	  <hr>
+	  {% else %}
+	  {% for u in weather %}
+	  {{u}}<br><br>
+	  {% endfor %}
+	  {% endif %}
+
+	  <br><br><br>
+
+	  <h1 class="content-subhead">Images</h1>
+	  {% if imageError %}
+	  Images not found for city
+	  {% else %}
+	  {% for i in images %}
+	  <img src={{i}} width="50%">
+	  <hr>
+	  {% endfor %}
+	  {% endif %}
+
+
+        </div>
+      </div>
+
+{% endblock content %}

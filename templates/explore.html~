@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="content pure-u-1 pure-u-md-3-4">
+      <div>
+        <div class="posts">
+	  <center><h1>Information about {{city}}</h1></center>
+          <h1 class="content-subhead">Infomation</h1>
+
+	  <h3>Information</h3>
+	  {% if wikiError %}
+	  Wikipedia data  not found for city
+	  <hr>
+	  {% else %}
+	  {% for i in wiki %}
+	  {{wiki[i]['extract']}} 
+	  <hr>
+	  {% endfor %}
+	  {% endif %}
+
+	    <br><br>
+	  <h1 class="content-subhead">The People</h1>
+	    <center><p><i>Boying Tang<br>Isaac Gerstein<br>Helen Li<br></i></p></center>
+        </div>
+      </div>
+
+{% endblock content %}

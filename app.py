@@ -7,11 +7,7 @@ weatherAPI = "7243b666b6841ed373ea8cd1289cc06d"
 
 @app.route("/")
 def home():
-	return render_template("base.html")
-
-@app.route("/?city=<c>")
-def city():
-        return redirect ("/info") 
+	return render_template("base.html") 
 
 @app.route("/info", methods = ["GET", "POST"])
 def info():
@@ -71,9 +67,13 @@ def info():
                         imageError = True
                         imageURLs = []
 
-                return render_template("info.html", city = city, wiki=wiki, weatherError = weatherError, imageError = imageError, weather = weather, images = imageURLs)
+                return render_template("explore.html", city = city, wiki=wiki, weatherError = weatherError, imageError = imageError, weather = weather, images = imageURLs)
         else:
                 return redirect("/")
+
+@app.route("/about")
+def about():
+        return render_template("about.html")
 
 if __name__ == "__main__":
    app.debug = True

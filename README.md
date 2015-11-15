@@ -3,7 +3,7 @@ Software Development Period 5
 
 ## The People
 - Boying Tang
-- Issac Gerstein
+- Isaac Gerstein
 - Helen Li
 
 ## Function

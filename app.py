@@ -13,6 +13,8 @@ def home():
 def info():
         if request.form.has_key("city") and request.form["city"] != "":
                 city = request.form["city"]
+                weatherError = False
+                imageError = False
 
                 #Weather data
                 url = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=Imperial&appid=%s"
@@ -20,12 +22,16 @@ def info():
                 req = urllib2.urlopen(url)
                 result = req.read()
                 r = json.loads(result)
-                main = r["main"]
-                weather = []
-                weather.append("Current Temperature:" + str(main["temp"]))
-                weather.append("Min Temperature:" + str(main["temp_min"]))
-                weather.append("Max Temperature:" + str(main["temp_max"]))
-                weather.append("Humidity:" + str(main["humidity"]))
+                if r.has_key("main"):
+                        main = r["main"]
+                        weather = []
+                        weather.append("Current Temperature:" + str(main["temp"]))
+                        weather.append("Min Temperature:" + str(main["temp_min"]))
+                        weather.append("Max Temperature:" + str(main["temp_max"]))
+                        weather.append("Humidity:" + str(main["humidity"]))
+                else:
+                        weatherError = True
+                        weather = []
                 
                 #Google Images
                 url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=%s"
@@ -34,12 +40,16 @@ def info():
                 result = req.read()
                 r = json.loads(result)
                 images = r["responseData"]["results"]
-                imageURLs = []
-                for i in range(0, 3):
-                        if len(images) > i:
-                                imageURLs.append(images[i]["unescapedUrl"])
+                if len(images) > 0:
+                        imageURLs = []
+                        for i in range(0, 3):
+                                if len(images) > i:
+                                        imageURLs.append(images[i]["unescapedUrl"])
+                else:
+                        imageError = True
+                        imageURLs = []
 
-                return render_template("info.html", city = city, weather = weather, images = imageURLs)
+                return render_template("info.html", city = city, weatherError = weatherError, imageError = imageError, weather = weather, images = imageURLs)
         else:
                 return redirect("/")
 

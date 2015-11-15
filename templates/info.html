@@ -2,6 +2,12 @@
 
 {% block body %}
 
-Information for {{city}}
+<h2>Information for {{city}}</h2>
+<br>
+
+{% for u in weather %}
+{{u}}
+<hr>
+{% endfor %}
 
 {% endblock %}

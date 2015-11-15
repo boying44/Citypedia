@@ -7,7 +7,7 @@ weatherAPI = "7243b666b6841ed373ea8cd1289cc06d"
 
 @app.route("/")
 def home():
-	return render_template("home.html")
+	return render_template("base.html")
 
 @app.route("/info", methods = ["GET", "POST"])
 def info():
@@ -17,7 +17,7 @@ def info():
                 imageError = False
 
                 #Wikipedia Info
-                url = "https://en.wikipedia.org/w/api.php?action=query&titles=%s&prop=extracts&exintro=&rvprop=content&format=json"
+                url = "https://en.wikipedia.org/w/api.php?action=query&titles=%s&prop=extracts&exintro=&explaintext=&rvprop=content&format=json"
                 url = url%(city.replace(" ", "%20"))
                 req = urllib2.urlopen(url)
                 result = req.read()
@@ -26,6 +26,9 @@ def info():
                         q = r["query"]
                         if q.has_key("pages"):
                                 wiki = q["pages"]
+                        else:
+                                wikiError = True
+                                wiki = []
                 else:
                         wikiError = True
                         wiki = []

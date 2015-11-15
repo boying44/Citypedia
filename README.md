@@ -8,9 +8,12 @@ Software Development Period 5
 
 ## Function
 - Users will input a city in the search bar.
-- Using different APIs, images of the city, food places nearby, and the weather of the city will be displayed.
+- Using different APIs, information about the city, the weather of the city, and images of the city will be displayed.
 
 ## APIs
-- Yelp API
-- Google Images API
+- Wikipedia (EN) API
 - Open Weather Map API
+- Google Images API
+
+## How to run
+python app.py

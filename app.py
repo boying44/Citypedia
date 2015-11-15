@@ -25,7 +25,7 @@ def info():
                 r = json.loads(result)["query"]["pages"]
                 wiki = []
                 for i in r:
-                        if r[i].has_key("extract"):
+                        if r[i].has_key("extract") and r[i]["extract"] != "":
                                 wiki.append(r[i]["extract"])
                         else:
                                 wikiError = True

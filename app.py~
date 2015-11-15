@@ -6,13 +6,14 @@ app = Flask(__name__)
 weatherAPI = "7243b666b6841ed373ea8cd1289cc06d"
 
 @app.route("/")
-def home():
+def base():
 	return render_template("base.html") 
 
-@app.route("/info", methods = ["GET", "POST"])
+@app.route("/explore", methods = ["GET", "POST"])
 def info():
         if request.form.has_key("city") and request.form["city"] != "":
-                city = request.form["city"]
+                city = request.form["city"].title()
+                wikiError = False
                 weatherError = False
                 imageError = False
 
@@ -21,17 +22,14 @@ def info():
                 url = url%(city.replace(" ", "%20"))
                 req = urllib2.urlopen(url)
                 result = req.read()
-                r = json.loads(result)
-                if r.has_key("query"):
-                        q = r["query"]
-                        if q.has_key("pages"):
-                                wiki = q["pages"]
+                r = json.loads(result)["query"]["pages"]
+                wiki = []
+                for i in r:
+                        if r[i].has_key("extract"):
+                                wiki.append(r[i]["extract"])
                         else:
                                 wikiError = True
                                 wiki = []
-                else:
-                        wikiError = True
-                        wiki = []
 
                 
                 #Weather data
@@ -67,7 +65,7 @@ def info():
                         imageError = True
                         imageURLs = []
 
-                return render_template("explore.html", city = city, wiki=wiki, weatherError = weatherError, imageError = imageError, weather = weather, images = imageURLs)
+                return render_template("explore.html", city = city, wikiError = wikiError, weatherError = weatherError, imageError = imageError, wiki = wiki, weather = weather, images = imageURLs)
         else:
                 return redirect("/")
 

@@ -27,7 +27,19 @@ def info():
                 weather.append("Max Temperature:" + str(main["temp_max"]))
                 weather.append("Humidity:" + str(main["humidity"]))
                 
-                return render_template("info.html", city = city, weather = weather)
+                #Google Images
+                url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=%s"
+                url = url%(city.replace(" ", "%20"))
+                req = urllib2.urlopen(url)
+                result = req.read()
+                r = json.loads(result)
+                images = r["responseData"]["results"]
+                imageURLs = []
+                for i in range(0, 3):
+                        if len(images) > i:
+                                imageURLs.append(images[i]["unescapedUrl"])
+
+                return render_template("info.html", city = city, weather = weather, images = imageURLs)
         else:
                 return redirect("/")
 

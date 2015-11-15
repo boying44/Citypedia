@@ -3,10 +3,16 @@
 {% block body %}
 
 <h2>Information for {{city}}</h2>
-<br>
 
+<h3>Weather</h3>
 {% for u in weather %}
 {{u}}
+<hr>
+{% endfor %}
+
+<h3>Images</h3>
+{% for i in images %}
+<img src={{i}} width="50%">
 <hr>
 {% endfor %}
 

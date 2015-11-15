@@ -12,7 +12,7 @@ def base():
 @app.route("/explore", methods = ["GET", "POST"])
 def info():
         if request.form.has_key("city") and request.form["city"] != "":
-                city = request.form["city"]
+                city = request.form["city"].title()
                 wikiError = False
                 weatherError = False
                 imageError = False

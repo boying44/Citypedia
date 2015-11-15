@@ -16,21 +16,6 @@ def info():
                 weatherError = False
                 imageError = False
 
-                #Wikipedia Info
-                url = "https://en.wikipedia.org/w/api.php?action=query&titles=%s&prop=extracts&exintro=&rvprop=content&format=json"
-                url = url%(city.replace(" ", "%20"))
-                req = urllib2.urlopen(url)
-                result = req.read()
-                r = json.loads(result)
-                if r.has_key("query"):
-                        q = r["query"]
-                        if q.has_key("pages"):
-                                wiki = q["pages"]
-                else:
-                        wikiError = True
-                        wiki = []
-
-                
                 #Weather data
                 url = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=Imperial&appid=%s"
                 url = url%(city.replace(" ", "%20"), weatherAPI)
@@ -64,7 +49,7 @@ def info():
                         imageError = True
                         imageURLs = []
 
-                return render_template("info.html", city = city, wiki=wiki, weatherError = weatherError, imageError = imageError, weather = weather, images = imageURLs)
+                return render_template("info.html", city = city, weatherError = weatherError, imageError = imageError, weather = weather, images = imageURLs)
         else:
                 return redirect("/")
 

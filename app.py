@@ -10,7 +10,7 @@ def base():
 	return render_template("base.html") 
 
 @app.route("/explore", methods = ["GET", "POST"])
-def info():
+def explore():
         if request.form.has_key("city") and request.form["city"] != "":
                 city = request.form["city"].title()
                 wikiError = False

@@ -13,7 +13,7 @@ Software Development Period 5
 ## Pages
 - "/about" - linked to "about.html"
   - tells user what the page is about & the people
-- "/info" - linked to "info.html"
+- "/explore" - linked to "explore.html"
   - gives user information about a particular place
 
 ## APIs

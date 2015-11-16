@@ -3,8 +3,6 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
-weatherAPI = "7243b666b6841ed373ea8cd1289cc06d"
-
 @app.route("/")
 def base():
 	return render_template("base.html") 
@@ -30,21 +28,21 @@ def explore():
                         else:
                                 wikiError = True
                                 wiki = []
-
                 
                 #Weather data
-                url = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=Imperial&appid=%s"
-                url = url%(city.replace(" ", "%20"), weatherAPI)
+                url = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=Imperial&appid=7243b666b6841ed373ea8cd1289cc06d"
+                url = url%(city.replace(" ", "%20"))
                 req = urllib2.urlopen(url)
                 result = req.read()
                 r = json.loads(result)
                 if r.has_key("main"):
                         main = r["main"]
                         weather = []
-                        weather.append("Current Temperature:" + str(main["temp"]))
-                        weather.append("Min Temperature:" + str(main["temp_min"]))
-                        weather.append("Max Temperature:" + str(main["temp_max"]))
-                        weather.append("Humidity:" + str(main["humidity"]))
+                        weather.append("Current Temperature: " + str(main["temp"]) + " Farenheit")
+                        weather.append("Humidity: " + str(main["humidity"]))
+                        weather.append("Weather: " + r["weather"][0]["main"])
+                        weather.append("Cloudiness: " + str(r["clouds"]["all"]))
+                        weather.append("Wind Speed: " + str(r["wind"]["speed"]))
                 else:
                         weatherError = True
                         weather = []

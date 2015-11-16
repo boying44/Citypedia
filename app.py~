@@ -3,13 +3,10 @@ from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
-#home page with the form about what city the user would like to know about
 @app.route("/")
 def base():
 	return render_template("base.html") 
 
-#info about the city
-#wikipedia, weather, google images
 @app.route("/explore", methods = ["GET", "POST"])
 def explore():
         if request.form.has_key("city") and request.form["city"] != "":
@@ -70,7 +67,6 @@ def explore():
         else:
                 return redirect("/")
 
-#returns about pages
 @app.route("/about")
 def about():
         return render_template("about.html")
